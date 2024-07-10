@@ -12,7 +12,7 @@ function capitalizeFirst (array) {
 
     let string = array[0][0].toUpperCase() + array[0].slice(1, array[0].length);
 
-    res.push(string);
+    res.unshift(string);
 
     return res;
 }

@@ -145,6 +145,23 @@ class DoublyLinkedList {
     return true;
   }
 
+  remove(index) {
+    if(index < 0 || index >= this.length) return false;
+    if(index === 0) return this.pop_first();
+    if(index === this.length-1) return this.pop();
+
+    let beforeNode = this.get(index-1);
+    let indexNode = beforeNode.next;
+
+    beforeNode.next = indexNode.next;
+    indexNode.next.prev = beforeNode;
+    indexNode.next  = null;
+    indexNode.prepend = null;
+    
+    this.length--;
+    return true;
+  }
+
 }
 
 let dLinkList = new DoublyLinkedList("Apple");
@@ -163,7 +180,9 @@ dLinkList.append('Orange');
 
 // dLinkList.set(3, "Juice");
 
-dLinkList.insert(1, "Mutton");
+// dLinkList.insert(1, "Mutton");
+
+dLinkList.remove(2);
 
 dLinkList.print_list();
 

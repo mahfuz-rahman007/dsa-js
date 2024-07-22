@@ -1,11 +1,8 @@
 
 
 function bubble_sort(array) {
-    let c = 0;
     for (let i = 0; i < array.length; i++) {
-        c++;
         for (let j = 0; j < array.length - i; j++) {
-            c++;
             if(array[j] > array[j+1]) {
                 let temp = array[j];
                 array[j] = array[j+1];

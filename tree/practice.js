@@ -90,6 +90,49 @@ class BinarySearchTree {
 
         return this.__r_insert(this.root , value);
     }
+
+    find_tree_min_value(tree) {
+        let current_node = tree;
+
+        while (current_node.left !== null) {
+            current_node = current_node.left;
+        }
+
+        return current_node.value;
+    }
+
+    __r_delete(current_node, value) {
+
+        if(current_node === null) return null;
+
+        if(value < current_node.value) {
+            current_node.left = this.__r_delete(current_node.left, value);
+        } else if(value > current_node.value) {
+            current_node.right = this.__r_delete(current_node.right, value);
+        } else {
+
+            if(current_node.left === null && current_node.right === null) {
+                return null;
+            } else if(current_node.left === null) {
+                return current_node.right;
+            } else if(current_node.right === null) {
+                return current_node.left;
+            } else {
+                let subtree_min_value = this.find_tree_min_value(current_node.right);
+                current_node.value = subtree_min_value;
+                current_node.right = this.__r_delete(current_node.right, subtree_min_value);
+            }
+        }
+
+        return current_node;
+
+    }
+
+    r_delete(value) {
+        // if tree is empty
+        if(this.root === null) return false;
+        this.__r_delete(this.root, value);
+    }
 }
 
 let tree = new BinarySearchTree();
@@ -98,7 +141,10 @@ tree.insert(40);
 tree.insert(20);
 tree.insert(60);
 tree.insert(25);
+tree.insert(22);
+tree.insert(26);
 tree.insert(19);
 
 
-console.log(tree.r_insert(26), tree.root.left);
+
+console.log(tree.r_delete(20), tree.root.left);

@@ -53,6 +53,43 @@ class BinarySearchTree {
         }
         return false;
     }
+
+    __r_contain(current_node, value) {
+        if(current_node === null) return false;
+
+        if(current_node.value === value) return true;
+
+        return value < current_node.value ? this.__r_contain(current_node.left, value) : this.__r_contain(current_node.right, value);
+    }
+
+    r_contain(value) {
+        return this.__r_contain(this.root, value);
+    }
+
+    __r_insert(current_node, value) {
+        
+        if(current_node === null) {
+            return new Node(value);
+        }
+
+        if(value < current_node.value) {
+            current_node.left = this.__r_insert(current_node.left, value);
+        } else {
+            current_node.right = this.__r_insert(current_node.right, value);
+        }
+
+        return current_node;
+    }
+
+    r_insert(value) {
+        if(this.root === null) {
+            let new_node = new Node(value);
+            this.root = new_node;
+            return true
+        }
+
+        return this.__r_insert(this.root , value);
+    }
 }
 
 let tree = new BinarySearchTree();
@@ -64,5 +101,4 @@ tree.insert(25);
 tree.insert(19);
 
 
-
-console.log(tree.contain(65));
+console.log(tree.r_insert(26), tree.root.left);

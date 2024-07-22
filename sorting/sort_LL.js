@@ -39,9 +39,6 @@ class Node {
       return true;
     }
 
-    /**
-     * Link List Sorted By Bubble Sort Algorithm
-     */
     bubble_sort() {
       if(this.length < 2) return false;
 
@@ -65,9 +62,6 @@ class Node {
         }
     }
 
-    /**
-     * Link List Sorted By Selection Sor Algorithm
-     */
     selection_sort() {
 
       if(this.length < 2) return false;
@@ -97,6 +91,45 @@ class Node {
         temp = temp.next;
       }
     }
+
+    insertion_sort() {
+      if(this.length < 2) return false;
+
+      let sorted_list_head = this.head;
+
+      let unsorted_list_head = this.head.next;
+
+      sorted_list_head.next = null;
+
+      while(unsorted_list_head !== null) {
+        let current = unsorted_list_head;
+
+        unsorted_list_head = unsorted_list_head.next;
+
+        if(current.value < sorted_list_head.value) {
+          current.next = sorted_list_head;
+          sorted_list_head = current;
+        } else {
+
+          let search_pointer = sorted_list_head;
+
+          while (search_pointer.next !== null && current.value > search_pointer.value) {
+            search_pointer = search_pointer.next;
+          }
+
+          current.next = search_pointer.next;
+          search_pointer.next = current;
+        }
+
+      }
+
+      this.head = sorted_list_head;
+      let temp = this.head;
+      while (temp.next !== null) {
+        temp = temp.next;
+      }
+      this.tail = temp;
+    }
   
   }
   
@@ -109,7 +142,8 @@ linkList.append(1);
 linkList.append(3);
   
 // linkList.bubble_sort();
-linkList.selection_sort();
+// linkList.selection_sort();
+linkList.insertion_sort();
 
 linkList.print_list();
   

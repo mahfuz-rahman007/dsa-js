@@ -18,7 +18,7 @@ class Node {
         console.log("Empty List");
       } else {
         let temp = this.head;
-  
+        
         for (let i = 0; i < this.length; i++) {
           console.log(temp.value);
           temp = temp.next;
@@ -130,20 +130,62 @@ class Node {
       }
       this.tail = temp;
     }
+
+    /**
+     * Merge Sort Takes a unsorted linkList and merge them is this linkList and by ascending order 
+     */
+    merge_sort(linkList) {
+
+      let homeList = this.head;
+      let outsideList = linkList.head;
+      let dummy = new Node(null);
+      let current = dummy;
+
+      while (homeList !== null && outsideList !== null) {
+        
+        if(homeList.value < outsideList.value) {
+          current.next = homeList;
+          homeList = homeList.next;
+        } else {
+          current.next = outsideList;
+          outsideList = outsideList.next;
+        }
+
+        current = current.next;
+        
+      }
+
+      if(homeList !== null) {
+        current.next = homeList;
+      } else {
+        current.next = outsideList;
+        this.tail = linkList.tail;
+      }
+
+      this.head = dummy.next;
+      this.length += linkList.length;
+
+    }
   
   }
   
-let linkList = new LinkedList(4);
+let linkList = new LinkedList(3);
   
-linkList.append(2);
 linkList.append(6);
-linkList.append(5);
-linkList.append(1);
-linkList.append(3);
+linkList.append(8);
+linkList.append(9);
+
+let linkList2 = new LinkedList(1);
+  
+linkList2.append(4);
+linkList2.append(5);
+linkList2.append(7);
   
 // linkList.bubble_sort();
 // linkList.selection_sort();
-linkList.insertion_sort();
+// linkList.insertion_sort();
+
+linkList.merge_sort(linkList2);
 
 linkList.print_list();
   
